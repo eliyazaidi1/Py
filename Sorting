@@ -1,0 +1,110 @@
+class SortingTechniques:
+    def __init__(self, data):
+        self.data = data
+
+    def bubble_sort(self):
+  
+        for i in range(len(self.data) - 1):
+            for j in range(len(self.data) - i - 1):
+                if self.data[j] > self.data[j + 1]:
+                    self.data[j], self.data[j + 1] = self.data[j + 1], self.data[j]
+
+    def selection_sort(self):
+   
+        for i in range(len(self.data)):
+            min_idx = i
+            for j in range(i + 1, len(self.data)):
+                if self.data[j] < self.data[min_idx]:
+                    min_idx = j
+            self.data[i], self.data[min_idx] = self.data[min_idx], self.data[i]
+
+    def insertion_sort(self):
+  
+        for i in range(1, len(self.data)):
+            key = self.data[i]
+            j = i - 1
+            while j >= 0 and key < self.data[j]:
+                self.data[j + 1] = self.data[j]
+                j -= 1
+            self.data[j + 1] = key
+
+    def merge_sort(self, l, r):
+   
+        if l < r:
+            m = (l + r) // 2
+            self.merge_sort(l, m)
+            self.merge_sort(m + 1, r)
+            self.merge(l, m, r)
+
+    def merge(self, l, m, r):
+
+        i = l
+        j = m + 1
+        k = 0
+        temp = [0] * (r - l + 1)
+
+        while i <= m and j <= r:
+            if self.data[i] <= self.data[j]:
+                temp[k] = self.data[i]
+                i += 1
+            else:
+                temp[k] = self.data[j]
+                j += 1
+            k += 1
+
+        while i <= m:
+            temp[k] = self.data[i]
+            i += 1
+            k += 1
+
+        while j <= r:
+            temp[k] = self.data[j]
+            j += 1
+            k += 1
+
+        for i in range(l, r + 1):
+            self.data[i] = temp[i - l]
+
+    def quick_sort(self, l, r):
+
+        if l < r:
+            pivot_index = self.partition(l, r)
+            self.quick_sort(l, pivot_index - 1)
+            self.quick_sort(pivot_index + 1, r)
+
+    def partition(self, l, r):
+
+        pivot = self.data[r]
+        i = l - 1
+        for j in range(l, r):
+            if self.data[j] <= pivot:
+                i += 1
+                self.data[i], self.data[j] = self.data[j], self.data[i]
+        self.data[i + 1], self.data[r] = self.data[r], self.data[i + 1]
+        return i + 1
+
+    def heap_sort(self):
+
+        n = len(self.data)
+        for i in range(n // 2 - 1, -1, -1):
+            self.heapify_max(i, n)
+
+        for i in range(n - 1, 0, -1):
+            self.data[0], self.data[i] = self.data[i], self.data[0]
+            self.heapify_max(0, i)
+
+    def heapify_max(self, i, n):
+
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        if left < n and self.data[left] > self.data[largest]:
+            largest = left
+
+        if right < n and self.data[right] > self.data[largest]:
+            largest = right
+
+        if largest != i:
+            self.data[i], self.data[largest] = self.data[largest], self.data[i]
+            self.heapify_max(largest, n)
