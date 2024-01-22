@@ -1,0 +1,27 @@
+data = [5, 3, 1, 2, 4]
+    sorting = SortingTechniques(data)
+
+    print("Original list:", data)
+
+    sorting.bubble_sort()
+    print("Bubble sort:", sorting.data)
+
+    sorting = SortingTechniques(data)
+    sorting.selection_sort()
+    print("Selection sort:", sorting.data)
+
+    sorting = SortingTechniques(data)
+    sorting.insertion_sort()
+    print("Insertion sort:", sorting.data)
+
+    sorting = SortingTechniques(data)
+    sorting.merge_sort(0, len(data) - 1)
+    print("Merge sort:", sorting.data)
+
+    sorting = SortingTechniques(data)
+    sorting.quick_sort(0, len(data) - 1)
+    print("Quick sort:", sorting.data)
+
+    sorting = SortingTechniques(data)
+    sorting.heap_sort()
+    print("Heap sort:", sorting.data)
